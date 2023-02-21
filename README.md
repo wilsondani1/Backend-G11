@@ -1,4 +1,5 @@
 # REPOSITORIO DE BACKEND  DE CODIGO G11
+
 <p align ="center">
 <img src="https://assets.website-files.com/624b2bd5b7be89e20392d489/624b37b08ca87609798e03a6_codigo-logo-blanco.svg">
 </p>
@@ -9,15 +10,12 @@ Las semanas estaran distribuidas por_branches_(ramas) en elc ual cada semana ser
 
 A continuacion , las semanas:
 
-- Semana 01 [LINK]()
+- Semana 01 [LINK]
 - Semana 02
-- Semana 03git status
-git add --all
-
+- Semana 03
 - Semana 04
 - Semana 05
 - Semana 06
 - Semana 07
 - Semana 08
-- Semana 08
-- Semana 08
+- Semana 09
