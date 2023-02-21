@@ -11,7 +11,9 @@ A continuacion , las semanas:
 
 - Semana 01 [LINK]()
 - Semana 02
-- Semana 03
+- Semana 03git status
+git add --all
+
 - Semana 04
 - Semana 05
 - Semana 06
