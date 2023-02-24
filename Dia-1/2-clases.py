@@ -31,5 +31,7 @@ print(Persona2.peso)
 #todas las modificaciones que hacenos es independiente de la instancia
 resultado1 = Persona1.sumar(10,5,41,526,489,63)
 resultado2 = Persona2.sumar(5,8,65,985,492,520,700)
+
 print(resultado1)
 print(resultado2)
+
