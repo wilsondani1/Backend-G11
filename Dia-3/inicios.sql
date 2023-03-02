@@ -1,3 +1,6 @@
+--------para iniciar postgresql
+psql -U postgres
+
 -- Para crear una base de datos
 CREATE DATABASE pruebas;
 -- Lista las bases de datos en el servidor
@@ -88,7 +91,6 @@ CREATE TABLE direcciones(
 
 -- DDL (ALTER)
 
-
 -- TAREA
 -- PASOS: Primero ingresar los datos y luego resolver las siguientes queries:
 -- DIRECCION            NUM     REFERENCIA              ALUMNO_ID
@@ -105,12 +107,22 @@ CREATE TABLE direcciones(
 
 
 -- 1. Buscar todas las direcciones que sean calles
--- 2. Listar todas las direcciones sin referencia
--- 3. Listar todas las direcciones que sean menores que 1000
--- 4. Listar todas las direcciones que sean o Av o Pasaje
--- 5. Listar todas las direcciones de los alumnos 1 o que vivan en calles o que no tengan referencias
--- 6. Listar todas las direcciones que sean calle y que su referencia no sea nula y que su alumno sea el 1
+SELECT * FROM direcciones WHERE direccion LIKE '%Calle %';
 
+-- 2. Listar todas las direcciones sin referencia
+SELECT * FROM direcciones WHERE referencia IS NULL;
+
+-- 3. Listar todas las direcciones que sean menores que 1000
+SELECT * FROM direcciones WHERE numero < 1000;
+
+-- 4. Listar todas las direcciones que sean o Av o Pasaje
+SELECT * FROM direcciones WHERE direccion LIKE 'Av%' OR direccion LIKE 'Pasaje%';
+
+-- 5. Listar todas las direcciones de los alumnos 1 o que vivan en calles o que no tengan referencias
+SELECT * FROM direcciones WHERE alumno_id = 1 OR direccion LIKE 'Calle %' OR referencia IS NULL;
+
+-- 6. Listar todas las direcciones que sean calle y que su referencia no sea nula y que su alumno sea el 1
+SELECT * FROM direcciones WHERE direccion LIKE 'Calle %' AND referencia NOT IS NULL AND alumno_id = 1;
 
 -- Para borrar una tabla
 DROP TABLE nombre_tabla
