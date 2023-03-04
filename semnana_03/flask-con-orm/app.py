@@ -24,6 +24,8 @@ Migrate(app=app,db=conexion)
 
 #defino las rutas de mi bd
 Flask_api.add_resource(NivelController,'/nivel')
+Flask_api.add_resource(NivelController,'/nivel/<id>')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
