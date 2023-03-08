@@ -9,54 +9,60 @@ class NivelController(Resource):
     #GET POST,PUT
     def get(self):
         query: Query = conexion.session.query(Nivel)
-        #select *from niveles :
-        resultado = query.all()
-
+        #selc *from niveles ;
+        resultado = query.all() 
         dto = NivelDto()
-        dto .dump(resultado,many=True)
+        #drump > es un metodo en la cual le paso la instancia que quiero convertir  a tipo de datos genericos. si se le pasa mas de un a instancia osea una lista de instancias se le tine que adicinar el paramatro many = tru para indicar que lo entra que interar
+        niveles = dto.dump(resultado, many=True)
 
+        # al escribir esta  linea ya no se hace los de abajo 
 
-#        print (resultado[0].numero)
-#        print (resultado[0].descripcion)
-#        niveles =[]
-#        for nivel in resultado:
-#            niveles.append({
-#                'id':nivel.id,
-#                'numero':nivel.numero,
-#                'descripcion':nivel.descripcion
-#            })
-            
+        # print(resultado[0].numero)
+        # print(resultado[0].descripcion) 
+        # niveles = []
+        # for nivel in resultado:
+        #     niveles.append({
+        #         'id':nivel.id,
+        #         'numero':nivel.numero,
+        #         'descripcion':nivel.descripcion
+        #     })
+
         return{
-            'content':niveles
-
+             'contect': niveles
+            
         }
+
     def post(self):
         data = request.json
         dto = NivelDto()
-
+        # load > aca le pasamos un diccionario y lo convertira y validara si toda la informacion es correcta, si no lo es, emitira un error y si la informacion esta bien, entonces devolvera un diccionario con la data correcta
         try:
-            data_validada=dto.load(data)
+            data_validada =dto.load(data)
+            print(data_validada)
 
-            nuevo_nivel = Nivel(numero=data.get('numero'),descripcion=data.get('descripcion'))
+            nuevo_nivel = Nivel(numero=data_validada.get('numero'), descripcion=data_validada.get('descripcion'))
 
+            # con el metodo add indicamos que queremos guardar ese nuevo registro
             conexion.session.add(nuevo_nivel)
-
+            # con el metodo commit queremos guardar de manera permantente esa informacion en la base de datos
             conexion.session.commit()
-            return{
-                'message':'nivelcreado exitosamente'
-            },201
-        except Exception as error:
-             return{
-            'message':'error al crear el nivel',
-            'content': error.args
-            }
 
+            return {
+                'message': 'Nivel creado exitosamente'
+            }, 201
+        except Exception as error:
+            return {
+                'message': 'Error al crear el nivel',
+                'content': error.args
+            }
+        
 class UnNivelController(Resource):
-    def get(self.id):
-        query:Query = conexion.session.query(Nivel)
-        nivel_encontrado = query.filter_by(id=id).first()
-        dto =NivelDto()
-        resultado =dto.drump(nivel_encontrado)
+    def get(self, id):
+        query: Query = conexion.session.query(Nivel)
+        nivel_encontrado = query.filter_by(id= id).first()
+        # TODO: Implementar si no existe ese nivel, retornar un message diciendo que el nivel no existe
+        dto = NivelDto()
+        resultado = dto.dump(nivel_encontrado)
 
         return {
             'content': resultado
