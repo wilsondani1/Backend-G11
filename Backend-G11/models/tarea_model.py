@@ -21,5 +21,3 @@ class Tarea(conexion.Model):
     usuarioId = Column(ForeignKey(column='usuarios.id'), type_=types.Integer, nullable=False, name= 'usuario_id')
 
     __tablename__ = 'tareas'
-
-    
