@@ -19,3 +19,8 @@ A continuacion , las semanas:
 - Semana 07
 - Semana 08
 - Semana 09
+
+´´´ javascript
+const numero = 10;
+const otro_numero
+'''
