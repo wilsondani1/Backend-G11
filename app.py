@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from os import environ
 from db import conexion
 from flask_restful import Api
-
 from controllers.usuario_controller import RegistroController
 
 load_dotenv()
@@ -21,4 +20,4 @@ Migrate(app, conexion)
 api.add_resource(RegistroController, '/registro')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+     app.run(debug=True)

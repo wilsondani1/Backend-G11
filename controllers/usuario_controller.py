@@ -8,9 +8,10 @@ class RegistroController(Resource):
     def post(self):
         data = request.json
         try:
+            
             dto = UsuarioDto()
             data_serializada = dto.load(data)
-            # Hash de la password
+            #Hash de la password
             salt = gensalt()
             password = bytes(data_serializada.get('password'),'utf-8')
             hashed_password = hashpw(password,salt).decode('utf-8')
