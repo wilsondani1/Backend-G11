@@ -26,9 +26,8 @@ class ImagenesController(Resource):
         }
 
     def get(self, nombre):
-        return send_file(path.join('imagenes',nombre))
-    
-    #     try:
-    #         return send_file(path.join('imagenes',nombre))
-    #     except FileNotFoundError:
-    #         return send_file(path.join('imagenes','not_found.png'))
+   
+        try:
+            return send_file(path.join('imagenes',nombre))
+        except FileNotFoundError:
+            return send_file(path.join('imagenes','not_found.png'))

@@ -30,8 +30,7 @@ def enviar_correo_prueba():
 
 
 api.add_resource(RegistroController, '/registro')
-api.add_resource(ImagenesController, '/imagenes') #, '/imagenes/<nombre>'
-
+api.add_resource(ImagenesController, '/imagenes', '/imagenes/<nombre>') 
 
 if __name__ == '__main__':
      app.run(debug=True)
