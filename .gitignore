@@ -3,3 +3,4 @@ __pycache__/
 imagenes/*
 # si queremos no ignorar
 !imagenes/not_found.png
+.env
