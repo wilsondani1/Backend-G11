@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gestion'
+    'gestion',
+    # sirevepara indicar  que ahor avmos a poder acceder a  todos los recursos de  DRF 
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
