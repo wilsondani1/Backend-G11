@@ -45,7 +45,7 @@ class CategoriaView(APIView):
         if resultado:
             print(data_serializada.validated_data)
             nueva_categoria = Categoria(**data_serializada.validated_data)
-            # save() > guardar la nueva informacion en la base de datos de manera permanente
+            # save() > guardara la nueva informacion en la base de datos de manera permanente
             nueva_categoria.save()
 
             return Response(data={
@@ -57,3 +57,79 @@ class CategoriaView(APIView):
                 'message': 'Error al crear la categoria',
                 'content': data_serializada.errors
             })
+    
+    def get(self,request:Request):
+        #https://docs.djangoproject.com/en/4.1/topics/db/queries/
+        #select *from categorias
+        categorias = Categoria.objects.all()
+        data_serialzada = CategoriaSerializer(instance=categorias,many=True)
+        print(categorias)
+        return Response (data={
+            'content':data_serialzada.data
+        })
+    
+class UnaCategoriaView(APIView):
+    def get(self,request:Request,id):
+        print(id)
+        categoria_encontrada = Categoria.objects.filter(id=id).first()
+
+        if not categoria_encontrada:
+        
+           return Response (data={
+            'message':'categoria no existe'
+        },status=404)
+            
+        resultado = CategoriaSerializer(instance=categoria_encontrada)
+
+        return Response (data={
+            'content':resultado.data
+        })
+    
+    def put(self,request:Request,id):
+        
+        categoria_encontrada = Categoria.objects.filter(id=id).first()
+
+        if not categoria_encontrada:
+        
+           return Response (data={
+            'message':'categoria no existe'
+             },status=404)
+
+        data = request.data
+        data_serializada = CategoriaSerializer(data=data)
+
+        if data_serializada.is_valid():
+            categoria_encontrada.nombre = data_serializada.validated_data.get('nombre')
+            categoria_encontrada.habilitado = data_serializada.validated_data.get('habilitado')
+            categoria_encontrada.save()
+            
+            return Response(data={
+                'message': 'Categoria actualizada'
+            })
+        else:
+
+            return Response (data={
+                'message':'Eror al actualizar la categoria',
+                'content':data_serializada.errors
+            })
+        
+    def delete (self,request:Request,id):
+        categoria_encontrada = Categoria.objects.filter(id = id).first()
+
+        if not categoria_encontrada:
+        
+           return Response (data={
+            'message':'categoria no existe'
+        }, status=404)
+        # delte from categorias where id =
+        #me retorna el total de registroseliminados en una tupla de la siguiente mmanera
+         #correlativo, ('modelo' catiidad_elementos_eliminados)   
+        resultado = Categoria.objects.filter(id = id).delete()
+        print(resultado)
+
+        return Response (data={
+            'content':'Categoria eliminada exitosamente'
+        })
+        
+
+        
