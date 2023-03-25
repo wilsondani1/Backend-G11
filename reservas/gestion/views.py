@@ -1,8 +1,10 @@
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.request import Request
-from .models import Categoria
-from .serializers import PruebaSerializer, CategoriaSerializer
+from rest_framework import status
+from .models import Categoria, Producto
+from .serializers import PruebaSerializer, CategoriaSerializer,ProductoSerializer,paginationSerializer,ProductoConCategoriaSerializer
 
 class PruebaView(APIView):
     def get(self, request):
@@ -130,6 +132,69 @@ class UnaCategoriaView(APIView):
         return Response (data={
             'content':'Categoria eliminada exitosamente'
         })
+    
+
+class ProductosView(APIView):
+    def post (self,request:Request):
+        data = request.data
+        data_serializada = ProductoSerializer(data = data)
+        if data_serializada.is_valid():
+            nuevo_producto = data_serializada.save()
+            
+            resultado=ProductoSerializer(instance=nuevo_producto)
+            return Response(data= {
+                'message': 'producto creado exitosamente',
+                'content' : resultado.data
+             },status=status.HTTP_201_CREATED)
+        else:
+             return Response(data= {
+                'message': 'error al crear producto',
+                'content' : data_serializada.errors
+                   
+             },status=status.HTTP_400_BAD_REQUEST)
+        
+    def get (self,request:Request):
+        #paguinacion manual
+        page = int(request.query_params.get('page'))
+        #-->  10 el valor por defecto si no me encia el parametro perPage
+        perPage = int(request.query_params.get('perPage',10))
+        #cuanto te vas  saltar
+        skip =(page - 1) * perPage
+
+        #cuantos vas a tomar
+        take =perPage*page
+        print(skip)
+        print(take)
+        total_productos = Producto.objects.count()
+        productos = Producto.objects.all()[skip:take]
+        informacion_paginacion = paginationSerializer(total_productos,page,perPage)
+        data_serializada = ProductoSerializer(instance=productos,many=True)
+        return Response(data= { 
+            'content' : data_serializada.data,
+            'pageInfo' : informacion_paginacion
+
+        },status=status.HTTP_200_OK)
+    
+
+
+class ProductosGenericView(ListAPIView):
+    serializer_class = ProductoSerializer
+    queryset =Producto.objects.all()
+      
+
+class UnProductoView(APIView):
+    def get(self,request:Request, id):
+        producto=  Producto.objects.filter(id=id).first()
+        if not producto:
+            return Response(data={
+                'message':'producto no encontrado'
+            },status=status.HTTP_404_NOT_FOUND)
+        
+        resultado = ProductoConCategoriaSerializer(instance=producto)
+        return Response (data={
+            'content' :resultado.data
+        })
+
         
 
         
