@@ -33,6 +33,6 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
 
     objectes = ManejoUsuario()
     class Meta :
-        db_table = 'usuario'
+        db_table = 'usuarios'
 
 # Create your models here.
