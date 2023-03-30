@@ -79,14 +79,14 @@ WSGI_APPLICATION = 'reservas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'reservas',
-        'HOST': 'localhost',
-        'USER':'postgres',
-        'PASSWORD':'root',
-        'PORT':5432
-
+        'NAME': 'reservas', # nombre de la base de datos
+        'HOST': 'localhost', # el host donde se ubicara mi base de datos
+        'USER': 'postgres', # el usuario de la base de datos
+        'PASSWORD': 'root', # la contraseña de la base de datos
+        'PORT': 5432 # puerto de la base de datos
     }
 }
+
 
 
 # Password validation
@@ -130,7 +130,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK ={
-    'PAGE_SIZE':3,
+# Sirve para modificar el comportamiento de nuestra libreria DRF
+REST_FRAMEWORK = {
+    # PAGE_SIZE > para indicar cuantos elementos vamos a retornar por cada pagina
+    'PAGE_SIZE': 3,
+    # Que clase utilizara para realizar la paginacion
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 }

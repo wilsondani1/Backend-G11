@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Categoria,Producto
+from .models import Categoria, Producto
 from math import ceil
 
 # https://www.django-rest-framework.org/api-guide/serializers/#serializers
@@ -21,8 +21,8 @@ class ProductoConCategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = '__all__'
+        # depth > sirve para indicar que no solamente nos queremos quedar en este modelo sino que mediante la FK queremos acceder a "n" niveles
         depth = 1
-
 
 def paginationSerializer(totalItems, page, perPage):
     itemsPerPage = perPage if totalItems >= perPage else totalItems
