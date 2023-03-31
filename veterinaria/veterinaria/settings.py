@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from os import environ
 from dotenv import load_dotenv
+
 load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+aiwh-&8!4ycx)b3c0y6108h#ngl^r7hd-sr8#6jprs-ch_wi_'
+SECRET_KEY = 'django-insecure--j$624#0z1p1+qlnn2gn)8j8%v*a2s#z!_0f&ot*7((^)#b##i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,10 +83,10 @@ WSGI_APPLICATION = 'veterinaria.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': environ.get('NOMBRE_BD'),
-        'USER': environ.get('USER_BD'),
-        'PASSWORD': environ.get('PASSWORD_BD'),
-        'PORT': environ.get('PORT_BD'),
+        'NAME': environ.get('NOMBRE_DB'),
+        'USER': environ.get('USER_DB'),
+        'PASSWORD': environ.get('PASSWORD_DB'),
+        'PORT': environ.get('PORT_DB')
     }
 }
 
@@ -130,4 +132,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# https://docs.djangoproject.com/en/4.1/topics/auth/customizing/#substituting-a-custom-user-model
 AUTH_USER_MODEL = 'gestion.Usuario'
