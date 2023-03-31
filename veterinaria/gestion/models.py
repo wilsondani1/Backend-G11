@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 class ManejoUsuario(BaseUserManager):
     def create_superuser(self, correo, nombre, apellido, password, tipoUsuario):
         # este metodo se mandara a llamar cuando en la terminal se ponga 'python manage.py createsuperuser'
+         # este metodo se mandara a llamar cuando en la terminal se ponga 'python manage.py createsuperuser'
         if not correo:
             raise ValueError('El usuario debe tener un correo')
         
@@ -58,6 +59,8 @@ class Mascota (models.Model):
     sexo = models.TextField(choices=[('HEMBRA','HEMBRA'),('MACHO','MACHO')])
     fecha_nacimiento = models.DateField(db_column='fecha_nacimiento')
     alergia = models.TextField()
+
+    # https://cloudinary.com/documentation/image_upload_api_reference#upload_method
     fotos = CloudinaryField('foto')
 
     cliente = models.ForeignKey(to=Usuario,on_delete=models.RESTRICT,db_column='cliente_id')

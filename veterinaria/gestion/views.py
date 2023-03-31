@@ -4,6 +4,7 @@ from .serializers import RegistroUsuarioSerializers
 from .models import Usuario
 from rest_framework.response import Response
 from rest_framework import status
+# https://www.django-rest-framework.org/api-guide/permissions/
 from rest_framework.permissions import IsAuthenticated
 from .permission import SoloClientes
 from cloudinary import uploader
@@ -32,13 +33,14 @@ class RegistroUsuario(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
 class PerfilUsuario(APIView):
+    # lo hara en orden > > > primero entrara al permiso de IsAuthenticate y luego si esta todo bien pasara al segundo permiso y asi sucesivamente, si algun permiso falla absolutamente se detiene todos los demas permisos
 
     permission_classes = [IsAuthenticated,SoloClientes]
     def get(self,request:Request):
         print (request.user)
         print (request.auth)
 
-        # TODO: tarea
+        # TODO: Devolver el usuario, NO DEVOLVER LA PASSWORD solamente el nombre, apellido, correo y tipoUsuario utilizando un serializador
         return Response(data={
             'content':''
         })
