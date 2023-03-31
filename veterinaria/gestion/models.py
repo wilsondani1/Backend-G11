@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 class ManejoUsuario(BaseUserManager):
@@ -47,5 +48,19 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['nombre', 'apellido', 'tipoUsuario']
 
     objects = ManejoUsuario()
+
     class Meta:
         db_table = 'usuarios'
+
+class Mascota (models.Model):
+    id = models.AutoField(primary_key=True,null=False)
+    nombre = models.TextField(null=False)
+    sexo = models.TextField(choices=[('HEMBRA','HEMBRA'),('MACHO','MACHO')])
+    fecha_nacimiento = models.DateField(db_column='fecha_nacimiento')
+    alergia = models.TextField()
+    fotos = CloudinaryField('foto')
+
+    cliente = models.ForeignKey(to=Usuario,on_delete=models.RESTRICT,db_column='cliente_id')
+
+    class Meta:
+        db_table = 'mascota'
