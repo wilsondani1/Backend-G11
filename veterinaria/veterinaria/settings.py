@@ -2,8 +2,10 @@
 
 from pathlib import Path
 from os import environ
+
 from dotenv import load_dotenv
 from cloudinary import config, uploader, api
+from datetime import timedelta
 
 load_dotenv()
 
@@ -128,8 +130,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'gestion.Usuario'
 
 config(
-  cloud_name =environ.get ("ddanblhm4"),
-  api_key = environ.get ("681946248272492"),
-  api_secret =environ.get("hi9a6inNgsrPsgoIb9Mt18LIIrk"),
-  secure = True
+    cloud_name = environ.get('CLOUDINARY_NAME'),
+    api_key = environ.get('CLOUDINARY_API_KEY'),
+    api_secret = environ.get('CLOUDINARY_API_SECRET'),
+    secure = True
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
+
+SIMPLE_JWT ={
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1,minutes=15)
+}

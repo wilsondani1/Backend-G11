@@ -4,6 +4,9 @@ from .serializers import RegistroUsuarioSerializers
 from .models import Usuario
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from .permission import SoloClientes
+from cloudinary import uploader
 
 class RegistroUsuario(APIView):
 
@@ -27,3 +30,31 @@ class RegistroUsuario(APIView):
                 'message': 'Error al crear el usuario',
                 'content': serializador.errors
             }, status=status.HTTP_400_BAD_REQUEST)
+        
+class PerfilUsuario(APIView):
+
+    permission_classes = [IsAuthenticated,SoloClientes]
+    def get(self,request:Request):
+        print (request.user)
+        print (request.auth)
+
+        # TODO: tarea
+        return Response(data={
+            'content':''
+        })
+    
+class Mascotas (APIView):
+    permission_classes = [IsAuthenticated,SoloClientes]
+
+    def post(self,request:Request):
+        foto = request.FILES.get('foto')
+        print (foto)
+
+        resultado = uploader.upload(foto)
+
+        return Response(data= {
+            'message': 'mascota creada exitosamente',
+            'content' : resultado
+        },status=status.HTTP_201_CREATED)
+
+
