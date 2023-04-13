@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -146,4 +147,8 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT ={
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1,minutes=15)
+
+
 }
+CORS_ALLOW_ALLORIGINS=True
+STATIC_ROOT = BASE_DIR / 'archivos_estaticos'
