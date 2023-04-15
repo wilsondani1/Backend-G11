@@ -10,10 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model categoria{
-  id Int @id @default(autoincrement())
-  nombre        String
-  descripcion   String?
+model Categoria {
+  id             Int     @id @default(autoincrement())
+  nombre         String
+  descripcion    String?
   disponibilidad Boolean @default(true)
+  productos Producto[]
   @@map("categorias")
+}
+
+model Producto {
+  id               Int      @id @default(autoincrement())
+  nombre           String
+  precio           Float
+  fechaVencimiento DateTime @map("fecha_vencimiento")
+  categoriaId      Int      @map("categoria_id")
+  // Creamos las relaciones
+  // https://www.prisma.io/docs/concepts/components/prisma-schema/relations
+  categoria Categoria @relation(fields: [categoriaId], references: [id])
+  @@map("productos")
 }
